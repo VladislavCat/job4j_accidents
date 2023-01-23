@@ -39,7 +39,7 @@
             <tr th:each="accident: ${accidents}">
                 <td th:text="${accident.id}"/>
                 <td>
-                    <span th:text="${accident.name}"/>
+                    <a th:text="${accident.name}" th:href="@{|/formUpdateAccident?id=${accident.id}|}"</a>
                 </td>
                 <td>
                     <span th:text="${accident.text}"/>
