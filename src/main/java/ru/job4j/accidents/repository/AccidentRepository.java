@@ -20,7 +20,12 @@ public class AccidentRepository {
     }
 
     public void addAccident(Accident accident) {
-        map.putIfAbsent(accident.getId(), accident);
+        if (accident.getId() == 0) {
+            accident.setId(map.size() + 1);
+            map.putIfAbsent(accident.getId(), accident);
+        } else {
+            map.putIfAbsent(accident.getId(), accident);
+        }
     }
 
     public List<Accident> findAll() {

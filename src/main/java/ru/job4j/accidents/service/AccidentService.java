@@ -15,4 +15,8 @@ public class AccidentService {
     public List<Accident> findAll() {
         return accidentRepository.findAll();
     }
+
+    public void save(Accident accident) {
+        accidentRepository.addAccident(accident);
+    }
 }
