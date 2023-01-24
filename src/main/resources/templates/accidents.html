@@ -34,6 +34,7 @@
                 <th scope="col">Описание</th>
                 <th scope="col">Адрес инцидента</th>
                 <th scope="col">Тип инцидента</th>
+                <th scope="col">Нарушенные статьи</th>
             </tr>
             </thead>
             <tbody>
@@ -51,6 +52,11 @@
                 <td>
                     <span th:text="${accident.type.name}">
                 </td>
+                <td>
+                    <div th:each="rule : ${accident.rules}">
+                        <span th:text="${rule.name}"/>
+                    </div>
+                <td>
             </tr>
             </tbody>
         </table>
