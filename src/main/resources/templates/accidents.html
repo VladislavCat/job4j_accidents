@@ -15,9 +15,9 @@
 </head>
 <body>
 <div class="container">
-
     <nav class="nav nav-tabs">
             <a class="nav-item nav-link" th:href="@{/accidents}">Все инциденты</a>
+            <a class="nav-item nav-link" th:href="@{/create}">Зарегистрировать новое происшествие</a>
     </nav>
     <div class="row pt-3">
         <h2>
@@ -33,6 +33,7 @@
                 <th scope="col">Имя</th>
                 <th scope="col">Описание</th>
                 <th scope="col">Адрес инцидента</th>
+                <th scope="col">Тип инцидента</th>
             </tr>
             </thead>
             <tbody>
@@ -46,6 +47,9 @@
                 </td>
                 <td>
                     <span th:text="${accident.address}">
+                </td>
+                <td>
+                    <span th:text="${accident.type.name}">
                 </td>
             </tr>
             </tbody>

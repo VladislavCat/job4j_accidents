@@ -39,6 +39,11 @@
                         <input type="text" class="form-control" name="text" id="text">
                         <label for="address">Адрес</label>
                         <input type="text" class="form-control" name="address" id="address">
+                        <select class="form-control" id="type.id"  name="type.id">
+                                 <option th:each="type: ${types}"
+                                 th:text="${type.name}"
+                                 th:value="${type.id}"></option>
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
                 </form>

@@ -8,14 +8,21 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.accidents.model.Accident;
+import ru.job4j.accidents.model.AccidentType;
 import ru.job4j.accidents.service.AccidentService;
+import ru.job4j.accidents.service.AccidentTypeService;
 
 import java.util.Optional;
 
 @Controller
-@RequiredArgsConstructor
 public class AccidentController {
     private final AccidentService accidentService;
+    private final AccidentTypeService accidentTypeService;
+
+    public AccidentController(AccidentService accidentService, AccidentTypeService accidentTypeService) {
+        this.accidentService = accidentService;
+        this.accidentTypeService = accidentTypeService;
+    }
 
     @GetMapping("/accidents")
     public String all(Model model) {
@@ -26,11 +33,13 @@ public class AccidentController {
     @GetMapping("/create")
     public String viewCreateAccident(Model model) {
         model.addAttribute("accident", new Accident());
+        model.addAttribute("types", accidentTypeService.findAllType());
         return "/create";
     }
 
     @PostMapping("/saveAccident")
     public String save(@ModelAttribute Accident accident) {
+        accident.setType(accidentTypeService.findTypeById(accident.getType().getId()));
         accidentService.save(accident);
         return "redirect:/accidents";
     }
