@@ -15,10 +15,10 @@ import ru.job4j.accidents.service.AccidentService;
 public class AccidentController {
     private final AccidentService accidentService;
 
-    @GetMapping("/all_accidents")
+    @GetMapping("/accidents")
     public String all(Model model) {
         model.addAttribute("accidents", accidentService.findAll());
-        return "/all_accidents";
+        return "/accidents";
     }
 
     @GetMapping("/create_accidents")
