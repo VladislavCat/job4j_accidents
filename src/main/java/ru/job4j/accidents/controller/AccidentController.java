@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.service.AccidentService;
 
+import java.util.Optional;
+
 @Controller
 @RequiredArgsConstructor
 public class AccidentController {
@@ -35,7 +37,11 @@ public class AccidentController {
 
     @GetMapping("/formUpdateAccident")
     public String formUpdate(@RequestParam("id") int id, Model model) {
-        model.addAttribute("accident", accidentService.findById(id).get());
+        Optional<Accident> optional = accidentService.findById(id);
+        if (optional.isEmpty()) {
+            return "redirect:/404";
+        }
+        model.addAttribute("accident", optional.get());
         return "/formUpdateAccident";
     }
 
@@ -45,4 +51,8 @@ public class AccidentController {
         return "redirect:/all_accidents";
     }
 
+    @GetMapping("/404")
+    public String error() {
+        return "/404";
+    }
 }
