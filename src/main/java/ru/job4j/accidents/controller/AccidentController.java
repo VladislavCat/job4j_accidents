@@ -21,16 +21,16 @@ public class AccidentController {
         return "/accidents";
     }
 
-    @GetMapping("/create_accidents")
+    @GetMapping("/create")
     public String viewCreateAccident(Model model) {
         model.addAttribute("accident", new Accident());
-        return "/create_accidents";
+        return "/create";
     }
 
     @PostMapping("/saveAccident")
     public String save(@ModelAttribute Accident accident) {
         accidentService.save(accident);
-        return "redirect:/all_accidents";
+        return "redirect:/accidents";
     }
 
     @GetMapping("/formUpdateAccident")

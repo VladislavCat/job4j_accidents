@@ -7,9 +7,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.atomic.AtomicInteger;
+
 @Repository
 public class AccidentRepository {
     private final ConcurrentMap<Integer, Accident> map = new ConcurrentHashMap<>();
+    private final AtomicInteger indexMap = new AtomicInteger(0);
 
     public AccidentRepository() {
         addAccident(new Accident(1, "Авария", "Авария двух автомобилей на перекрестке",
@@ -21,12 +24,7 @@ public class AccidentRepository {
     }
 
     public void addAccident(Accident accident) {
-        if (accident.getId() == 0) {
-            accident.setId(map.size());
-            map.putIfAbsent(accident.getId(), accident);
-        } else {
-            map.putIfAbsent(accident.getId(), accident);
-        }
+        map.putIfAbsent(indexMap.getAndIncrement(), accident);
     }
 
     public Optional<Accident> findById(int id) {
