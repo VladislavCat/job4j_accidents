@@ -15,6 +15,7 @@ import ru.job4j.accidents.service.AccidentTypeService;
 import ru.job4j.accidents.service.RuleService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.text.html.Option;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
@@ -43,7 +44,11 @@ public class AccidentController {
 
     @PostMapping("/saveAccident")
     public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
-        accident.setType(accidentTypeService.findTypeById(accident.getType().getId()));
+        Optional<AccidentType> opt = (accidentTypeService.findTypeById(accident.getType().getId()));
+        if (opt.isEmpty()) {
+            return "redirect:/404";
+        }
+        accident.setType(opt.get());
         String[] ids = req.getParameterValues("rIds");
         Set<Rule> setRule = Arrays.stream(req.getParameterValues("rIds"))
                 .mapToInt(Integer::parseInt)

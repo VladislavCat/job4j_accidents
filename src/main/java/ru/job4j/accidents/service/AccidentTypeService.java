@@ -6,6 +6,7 @@ import ru.job4j.accidents.model.AccidentType;
 import ru.job4j.accidents.repository.AccidentTypeRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,7 +21,7 @@ public class AccidentTypeService {
         return accidentTypeRepository.findAllType();
     }
 
-    public AccidentType findTypeById(int id) {
+    public Optional<AccidentType> findTypeById(int id) {
         return accidentTypeRepository.findTypeById(id);
     }
 
