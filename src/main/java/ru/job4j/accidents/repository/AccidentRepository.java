@@ -16,6 +16,7 @@ public class AccidentRepository {
     private final AtomicInteger indexMap = new AtomicInteger(0);
 
     public void addAccident(Accident accident) {
+        accident.setId(indexMap.get());
         map.putIfAbsent(indexMap.getAndIncrement(), accident);
     }
 
