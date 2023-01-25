@@ -29,12 +29,12 @@ public class CreaterValue {
         ruleRepository.addRule(new Rule(3, "111 статья"));
         accidentRepository.addAccident(new Accident(1, "Авария", "Авария двух автомобилей на перекрестке",
                 "Салтыковская улица, д30",
-                typeRepository.findTypeById(1).get(), Set.of(ruleRepository.findRuleById(1))));
+                typeRepository.findTypeById(0).get(), Set.of(ruleRepository.findRuleById(0))));
         accidentRepository.addAccident(new Accident(2, "Авария", "Пьяный водитель влетел в столб",
-                "Минский проспект, д14", typeRepository.findTypeById(3).get(),
-                Set.of(ruleRepository.findRuleById(1), ruleRepository.findRuleById(2))));
-        accidentRepository.addAccident(new Accident(3, "Превышение скорости", "Превышение скоростного режима на 100 км/ч",
-                "МКАД, 14 км", typeRepository.findTypeById(2).get(),
-                Set.of(ruleRepository.findRuleById(3))));
+                "Минский проспект, д14", typeRepository.findTypeById(2).get(),
+                Set.of(ruleRepository.findRuleById(1), ruleRepository.findRuleById(0))));
+        accidentRepository.addAccident(new Accident(0, "Превышение скорости", "Превышение скоростного режима на 100 км/ч",
+                "МКАД, 14 км", typeRepository.findTypeById(1).get(),
+                Set.of(ruleRepository.findRuleById(2))));
     }
 }

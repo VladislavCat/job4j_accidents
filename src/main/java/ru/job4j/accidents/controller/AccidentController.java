@@ -17,6 +17,7 @@ import ru.job4j.accidents.service.RuleService;
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.text.html.Option;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -49,11 +50,10 @@ public class AccidentController {
             return "redirect:/404";
         }
         accident.setType(opt.get());
-        String[] ids = req.getParameterValues("rIds");
-        Set<Rule> setRule = Arrays.stream(req.getParameterValues("rIds"))
-                .mapToInt(Integer::parseInt)
-                .mapToObj(ruleService::findById)
-                .collect(Collectors.toSet());
+        Set<Rule> setRule = ruleService.findAllRuleById(req);
+        if (setRule.isEmpty()) {
+            return "redirect:/404";
+        }
         accident.setRules(setRule);
         accidentService.save(accident);
         return "redirect:/accidents";
@@ -65,14 +65,25 @@ public class AccidentController {
         if (optional.isEmpty()) {
             return "redirect:/404";
         }
+        model.addAttribute("rules", ruleService.findAll());
         model.addAttribute("accident", optional.get());
         return "/formUpdateAccident";
     }
 
     @PostMapping("/updateAccident")
-    public String update(@ModelAttribute Accident accident) {
+    public String update(@ModelAttribute Accident accident, HttpServletRequest req) {
+        Set<Rule> setRule = ruleService.findAllRuleById(req);
+        if (setRule.isEmpty()) {
+            return "redirect:/404";
+        }
+        Optional<AccidentType> optional = accidentTypeService.findTypeById(accident.getId());
+        if (optional.isEmpty()) {
+            return "redirect:/404";
+        }
+        accident.setType(optional.get());
+        accident.setRules(setRule);
         accidentService.update(accident);
-        return "redirect:/all_accidents";
+        return "redirect:/accidents";
     }
 
     @GetMapping("/404")

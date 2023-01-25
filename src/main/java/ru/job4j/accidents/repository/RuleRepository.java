@@ -13,6 +13,7 @@ public class RuleRepository {
     AtomicInteger index = new AtomicInteger();
 
     public void addRule(Rule rule) {
+        rule.setId(index.get());
         map.putIfAbsent(index.getAndIncrement(), rule);
     }
 
