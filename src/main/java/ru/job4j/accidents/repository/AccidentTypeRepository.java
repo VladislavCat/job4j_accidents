@@ -14,9 +14,9 @@ public class AccidentTypeRepository {
     private final ConcurrentMap<Integer, AccidentType> mapType = new ConcurrentHashMap<>();
     private final AtomicInteger indexMapType = new AtomicInteger(0);
 
-    public void addAccidentType(AccidentType accidentType) {
-        accidentType.setId(indexMapType.get());
-        mapType.putIfAbsent(indexMapType.getAndIncrement(), accidentType);
+    public boolean addAccidentType(AccidentType accidentType) {
+        accidentType.setId(indexMapType.getAndIncrement());
+        return mapType.putIfAbsent(indexMapType.get(), accidentType) == null;
     }
 
     public Optional<AccidentType> findTypeById(int id) {
