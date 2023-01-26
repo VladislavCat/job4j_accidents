@@ -20,7 +20,7 @@ public class AccidentMemRepository implements AccidentRepository {
     }
 
     public Optional<Accident> findById(int id) {
-        return map.values().stream().filter(accident -> accident.getId() == id).findFirst();
+        return Optional.ofNullable(map.get(id));
     }
 
     public List<Accident> findAll() {
