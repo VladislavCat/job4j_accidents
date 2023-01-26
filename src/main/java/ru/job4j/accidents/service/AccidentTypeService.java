@@ -2,6 +2,7 @@ package ru.job4j.accidents.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.AccidentType;
 import ru.job4j.accidents.repository.AccidentTypeRepository;
 
@@ -23,6 +24,16 @@ public class AccidentTypeService {
 
     public Optional<AccidentType> findTypeById(int id) {
         return accidentTypeRepository.findTypeById(id);
+    }
+
+    public boolean findTypeAndSetAccident(int id, Accident accident) {
+        Optional<AccidentType> at = accidentTypeRepository.findTypeById(id);
+        if (at.isPresent()) {
+            accident.setType(at.get());
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }

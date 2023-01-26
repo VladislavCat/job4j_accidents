@@ -22,6 +22,6 @@ public class RuleRepository {
     }
 
     public Rule findRuleById(int id) {
-        return map.values().stream().filter(accident -> accident.getId() == id).findFirst().get();
+        return map.get(id);
     }
 }
