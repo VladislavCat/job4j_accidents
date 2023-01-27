@@ -15,7 +15,7 @@ public class AccidentTypeRepository {
     private final AtomicInteger indexMapType = new AtomicInteger(0);
 
     public boolean addAccidentType(AccidentType accidentType) {
-        accidentType.setId(indexMapType.getAndIncrement());
+        accidentType.setId(indexMapType.incrementAndGet());
         return mapType.putIfAbsent(indexMapType.get(), accidentType) == null;
     }
 
