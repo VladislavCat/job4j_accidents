@@ -5,7 +5,8 @@ import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.AccidentType;
 import ru.job4j.accidents.model.Rule;
-import ru.job4j.accidents.repository.AccidentMemRepository;
+import ru.job4j.accidents.repository.AccidentJDBCRepository;
+import ru.job4j.accidents.repository.AccidentTypeJDBCRepository;
 import ru.job4j.accidents.repository.AccidentTypeRepository;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +17,8 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 public class AccidentService {
-    private final AccidentMemRepository accidentMemRepository;
-    private final AccidentTypeRepository accidentTypeRepository;
+    private final AccidentJDBCRepository accidentMemRepository;
+    private final AccidentTypeJDBCRepository accidentTypeRepository;
     private final RuleService ruleService;
 
     public List<Accident> findAll() {

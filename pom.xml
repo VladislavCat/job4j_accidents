@@ -30,7 +30,7 @@
         <profile>
             <id>production</id>
             <properties>
-                <db.url>jdbc:postgresql://127.0.0.1:5432/cars</db.url>
+                <db.url>jdbc:postgresql://127.0.0.1:5432/accident</db.url>
                 <db.username>postgres</db.username>
                 <db.password>258Yes129Msa</db.password>
                 <db.driver>org.postgresql.Driver</db.driver>
@@ -67,6 +67,11 @@
             <artifactId>mockito-core</artifactId>
             <version>4.0.0</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>5.3.23</version>
         </dependency>
         <dependency>
             <groupId>net.jcip</groupId>
