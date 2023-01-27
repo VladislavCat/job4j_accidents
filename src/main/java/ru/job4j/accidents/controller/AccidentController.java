@@ -39,14 +39,7 @@ public class AccidentController {
 
     @PostMapping("/saveAccident")
     public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
-        if (accidentTypeService.findTypeAndSetAccident(accident.getType().getId(), accident)) {
-            return "redirect:/404";
-        }
-        if (ruleService.findAllRuleById(req, accident)) {
-            return "redirect:/404";
-        }
-        accidentService.save(accident);
-        return "redirect:/accidents";
+        return accidentService.save(accident, req);
     }
 
     @GetMapping("/formUpdateAccident")
@@ -62,14 +55,7 @@ public class AccidentController {
 
     @PostMapping("/updateAccident")
     public String update(@ModelAttribute Accident accident, HttpServletRequest req) {
-        if (accidentTypeService.findTypeAndSetAccident(accident.getType().getId(), accident)) {
-            return "redirect:/404";
-        }
-        if (ruleService.findAllRuleById(req, accident)) {
-            return "redirect:/404";
-        }
-        accidentService.update(accident);
-        return "redirect:/accidents";
+        return accidentService.update(accident, req);
     }
 
     @GetMapping("/404")
