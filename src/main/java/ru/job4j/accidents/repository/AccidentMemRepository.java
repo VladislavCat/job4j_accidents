@@ -15,7 +15,7 @@ public class AccidentMemRepository implements AccidentRepository {
     private final AtomicInteger indexMap = new AtomicInteger(0);
 
     public boolean addAccident(Accident accident) {
-        accident.setId(indexMap.getAndIncrement());
+        accident.setId(indexMap.incrementAndGet());
         return map.putIfAbsent(indexMap.get(), accident) == null;
     }
 
