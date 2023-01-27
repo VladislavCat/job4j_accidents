@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.AccidentType;
 import ru.job4j.accidents.model.Rule;
-import ru.job4j.accidents.repository.AccidentJDBCRepository;
 import ru.job4j.accidents.repository.AccidentMemRepository;
 import ru.job4j.accidents.repository.AccidentTypeRepository;
 
