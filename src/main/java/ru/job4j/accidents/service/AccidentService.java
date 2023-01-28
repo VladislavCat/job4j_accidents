@@ -5,11 +5,8 @@ import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.AccidentType;
 import ru.job4j.accidents.model.Rule;
-import ru.job4j.accidents.repository.AccidentJDBCRepository;
-import ru.job4j.accidents.repository.AccidentTypeJDBCRepository;
-import ru.job4j.accidents.repository.AccidentTypeRepository;
+import ru.job4j.accidents.repository.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -25,33 +22,33 @@ public class AccidentService {
         return accidentMemRepository.findAll();
     }
 
-    public String save(Accident accident, HttpServletRequest req) {
-        if (setValueInAccident(req, accident)) {
-            return "redirect:/404";
+    public boolean save(Accident accident, String[] idRules) {
+        if (setValueInAccident(accident, idRules)) {
+            return false;
         }
         accidentMemRepository.addAccident(accident);
-        return "redirect:/accidents";
+        return true;
     }
 
     public Optional<Accident> findById(int id) {
         return accidentMemRepository.findById(id);
     }
 
-    public String update(Accident accident, HttpServletRequest req) {
-        if (setValueInAccident(req, accident)) {
-            return "redirect:/404";
+    public boolean update(Accident accident, String[] idRules) {
+        if (setValueInAccident(accident, idRules)) {
+            return false;
         }
         accidentMemRepository.update(accident);
-        return "redirect:/accidents";
+        return true;
     }
 
-    public boolean setValueInAccident(HttpServletRequest req, Accident accident) {
+    public boolean setValueInAccident(Accident accident, String[] idRules) {
         Optional<AccidentType> optionalAccidentType = accidentTypeRepository.findTypeById(accident.getType().getId());
         if (optionalAccidentType.isEmpty()) {
             return true;
         }
         accident.setType(optionalAccidentType.get());
-        Set<Rule> ruleSet = ruleService.findAllRuleById(req);
+        Set<Rule> ruleSet = ruleService.findAllRuleById(idRules);
         if (ruleSet.isEmpty()) {
             return true;
         }

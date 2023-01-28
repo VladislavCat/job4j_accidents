@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.Rule;
+import ru.job4j.accidents.repository.HbmRuleRepository;
 import ru.job4j.accidents.repository.RuleJDBCRepository;
-import ru.job4j.accidents.repository.RuleMemRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
@@ -22,8 +22,8 @@ public class RuleService {
         return repository.findAll();
     }
 
-    public Set<Rule> findAllRuleById(HttpServletRequest req) {
-        List<Integer> indexRules = Arrays.stream(req.getParameterValues("rIds"))
+    public Set<Rule> findAllRuleById(String[] idRules) {
+        List<Integer> indexRules = Arrays.stream(idRules)
                 .map(Integer::parseInt).toList();
         return findAll().stream()
                 .filter(rule -> indexRules.contains(rule.getId()))

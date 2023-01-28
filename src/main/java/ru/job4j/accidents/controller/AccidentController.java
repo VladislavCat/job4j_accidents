@@ -39,7 +39,11 @@ public class AccidentController {
 
     @PostMapping("/saveAccident")
     public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
-        return accidentService.save(accident, req);
+        boolean complete = accidentService.save(accident, req.getParameterValues("rIds"));
+        if (!complete) {
+            return "redirect:/404";
+        }
+        return "redirect:/accidents";
     }
 
     @GetMapping("/formUpdateAccident")
@@ -55,7 +59,11 @@ public class AccidentController {
 
     @PostMapping("/updateAccident")
     public String update(@ModelAttribute Accident accident, HttpServletRequest req) {
-        return accidentService.update(accident, req);
+        boolean complete = accidentService.update(accident, req.getParameterValues("rIds"));
+        if (!complete) {
+            return "redirect:/404";
+        }
+        return "redirect:/accidents";
     }
 
     @GetMapping("/404")
