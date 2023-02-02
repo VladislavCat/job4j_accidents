@@ -1,32 +1,38 @@
 package ru.job4j.accidents.service;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.AccidentType;
 import ru.job4j.accidents.model.Rule;
 import ru.job4j.accidents.repository.*;
+import ru.job4j.accidents.repository.DataAccidentRepository;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class AccidentService {
-    private final HbmAccidentRepository accidentMemRepository;
+    @Autowired
+    private final DataAccidentRepository accidentMemRepository;
     private final HbmTypeRepository accidentTypeRepository;
     private final RuleService ruleService;
-
+    @Transactional
     public List<Accident> findAll() {
-        return accidentMemRepository.findAll();
+        List<Accident> accidents = new ArrayList<>();
+        accidentMemRepository.findAll().iterator().forEachRemaining(accidents::add);
+        accidents.sort(Comparator.comparingInt(Accident::getId));
+        return accidents;
     }
 
     public boolean save(Accident accident, String[] idRules) {
         if (setValueInAccident(accident, idRules)) {
             return false;
         }
-        accidentMemRepository.addAccident(accident);
+        accidentMemRepository.save(accident);
         return true;
     }
 
@@ -38,7 +44,7 @@ public class AccidentService {
         if (setValueInAccident(accident, idRules)) {
             return false;
         }
-        accidentMemRepository.update(accident);
+        accidentMemRepository.save(accident);
         return true;
     }
 
