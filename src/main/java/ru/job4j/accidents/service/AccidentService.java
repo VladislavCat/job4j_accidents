@@ -14,8 +14,8 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 public class AccidentService {
-    private final AccidentJDBCRepository accidentMemRepository;
-    private final AccidentTypeJDBCRepository accidentTypeRepository;
+    private final HbmAccidentRepository accidentMemRepository;
+    private final HbmTypeRepository accidentTypeRepository;
     private final RuleService ruleService;
 
     public List<Accident> findAll() {

@@ -4,9 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.AccidentType;
-import ru.job4j.accidents.repository.AccidentJDBCRepository;
-import ru.job4j.accidents.repository.AccidentTypeJDBCRepository;
-import ru.job4j.accidents.repository.AccidentTypeRepository;
+import ru.job4j.accidents.repository.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,7 +12,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class AccidentTypeService {
-    private final AccidentTypeJDBCRepository accidentTypeRepository;
+    private final HbmTypeRepository accidentTypeRepository;
 
     public List<AccidentType> findAllType() {
         return accidentTypeRepository.findAllType();

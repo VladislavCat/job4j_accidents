@@ -3,6 +3,7 @@ package ru.job4j.accidents.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Rule;
+import ru.job4j.accidents.repository.HbmRuleRepository;
 import ru.job4j.accidents.repository.RuleJDBCRepository;
 
 import java.util.Arrays;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class RuleService {
-    private final RuleJDBCRepository repository;
+    private final HbmRuleRepository repository;
 
     public List<Rule> findAll() {
         return repository.findAll();
