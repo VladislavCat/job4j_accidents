@@ -1,15 +1,21 @@
 package ru.job4j.accidents.controller;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import ru.job4j.accidents.service.AccidentService;
 
 @Controller
+@RequiredArgsConstructor
 public class IndexController {
+    private final AccidentService accidents;
 
     @GetMapping("/index")
     public String index(Model model) {
-        model.addAttribute("user", "Vladislav Kotov");
+        model.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        model.addAttribute("accidents", accidents.findAll());
         return "/index";
     }
 }
